@@ -1,10 +1,10 @@
-FROM python:3.8-slim
+FROM python:3.9
 LABEL maintainer="aisdos007@gmail.com"
 
 ENV PROJECT_ROOT /app
 WORKDIR $PROJECT_ROOT
 
-COPY backend_requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 COPY . .
