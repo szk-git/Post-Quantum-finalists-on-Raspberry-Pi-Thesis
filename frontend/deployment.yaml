@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: localhost:32000/frontend:1.0.5
+        image: localhost:32000/frontend:1.0.6
         ports:
         - containerPort: 3000
           name: frontend-port
@@ -28,7 +28,7 @@ spec:
   type: NodePort
   ports:
     - port: 3000
-      targetPort: 30000
+      targetPort: 3000
       name: frontend-port
       nodePort: 30000
   selector:
