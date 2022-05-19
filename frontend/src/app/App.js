@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import AuthService from "../services/auth-service";
+import AuthService from "../services/AuthService";
 
 import Login from "../pages/login/login";
 import Register from "../pages/register/register";
 import Profile from "../pages/profile/profile";
 import Home from "../pages/home/home";
+import Admin from "../pages/admin/admin";
 import NotFound from "../common/NotFound";
 
 class App extends Component {
@@ -48,13 +49,21 @@ class App extends Component {
             <Link to={"/"} className="navbar-brand">
               Stock-Manager
             </Link>
-
+          
             <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li>
+              {currentUser ? (
+                <li className="nav-item">
+                  <Link to={"/profile"} className="nav-link">
+                    Profile
+                  </Link>
+                </li>
+              ):(
+                <li className="nav-item">
+                  <Link to={"/home"} className="nav-link">
+                    Home
+                  </Link>
+                </li>
+              )}
               {showAdminBoard && (
                 <li className="nav-item">
                   <Link to={"/admin"} className="nav-link">
@@ -97,6 +106,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/admin" component={Admin} />
               <Route component={NotFound}></Route>
             </Switch>
           </div>

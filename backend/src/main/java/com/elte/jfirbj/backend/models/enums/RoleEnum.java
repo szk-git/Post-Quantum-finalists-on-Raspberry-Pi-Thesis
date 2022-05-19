@@ -2,7 +2,6 @@ package com.elte.jfirbj.backend.models.enums;
 
 public enum RoleEnum {
 	ROLE_ADMIN("ROLE_ADMIN"),
-	ROLE_MODERATOR("ROLE_MODERATOR"),
 	ROLE_USER("ROLE_USER");
 
 	public final String label;

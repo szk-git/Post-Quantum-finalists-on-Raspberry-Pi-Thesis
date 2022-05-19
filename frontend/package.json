@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.2",
     "elliptic": "6.5.3",
+    "js-file-download": "^0.4.12",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

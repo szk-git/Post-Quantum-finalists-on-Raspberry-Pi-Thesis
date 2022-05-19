@@ -27,15 +27,15 @@ run(){
 chooseKyber(){
     if [ $1 == "Kyber512" ]; then
         run $Kyber512P Kyber512
-    elif [ $1 == "Kyber512-90s" ]; then
+    elif [ $1 == "Kyber512_90s" ]; then
         run $Kyber512_90sP Kyber512-90s
     elif [ $1 == "Kyber768" ]; then
         run $Kyber768P Kyber768
-    elif [ $1 == "Kyber768-90s" ]; then
+    elif [ $1 == "Kyber768_90s" ]; then
         run $Kyber768_90sP Kyber768-90s
     elif [ $1 == "Kyber1024" ]; then
         run $Kyber1024P Kyber1024
-    elif [ $1 == "Kyber1024-90s" ]; then
+    elif [ $1 == "Kyber1024_90s" ]; then
         run $Kyber1024_90sP Kyber1024-90s
     else
         echo "Not valid Kyber type"
@@ -59,6 +59,7 @@ chooseNTRU(){
 
 chooseFrodo(){
     if [ $1 == "Frodo" ]; then
+        echo "Frodo has gotten rid of the ring!"
         python $FrodoFile > files/Frodo.rsp
     else
         echo "JUST FRODO"
@@ -71,6 +72,8 @@ elif [[ $1 == *"NTRU"* ]]; then
     chooseNTRU $1
 elif [[ $1 == *"Frodo"* ]]; then
     chooseFrodo $1
+elif [[ $1 == "AES" ]]; then
+    openssl enc -aes-256-cbc -in pom.xml -out files/aes.enc -k PASS
 else
    echo "Maybe try something else..."
 fi

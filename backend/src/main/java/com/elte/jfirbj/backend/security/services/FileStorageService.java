@@ -9,7 +9,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.attribute.FileTime;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -20,13 +19,12 @@ public class FileStorageService {
 
     public FileModel store(String algorithmType, long creation ,long time, MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-
         FileModel fileModelObj = new FileModel(fileName, file.getContentType(), AlgorithmEnum.valueOf(algorithmType), creation, time, file.getBytes());
 
         return fileRepository.save(fileModelObj);
     }
 
-    public boolean isFileExist(String name, long creationTime){
+    public boolean isFileExist(long creationTime){
         return fileRepository.existsByCreationTime(creationTime);
     }
 

@@ -1,29 +1,6 @@
 import axios from "axios";
 
-import {API_BASE_URL, ACCESS_TOKEN} from '../common/constants';
-
-const request = (options) => {
-  const headers = new Headers({
-      'Content-Type': 'application/json',
-  })
-
-  if(localStorage.getItem(ACCESS_TOKEN)) {
-      headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
-  }
-
-  const defaults = {headers: headers};
-  options = Object.assign({}, defaults, options);
-
-  return fetch(options.url, options)
-  .then(response =>
-      response.json().then(json => {
-          if(!response.ok) {
-            return Promise.reject(json);
-          }
-          return json;
-      })
-  ); 
-};
+import {API_BASE_URL} from '../common/constants';
 
 class AuthService {
   login(username, password) {
@@ -62,16 +39,49 @@ class AuthService {
     }
 
     const defHeads = {headers: headers};
-    const inputData = Object.assign({}, defHeads, value);
-
     const URL = API_BASE_URL + "/run?type=" + type;
-
-    console.log(inputData)
 
     return axios.post(URL, value, defHeads).catch((error) => {
         if( error.response ){
             console.log(error.response.data); // => the response payload 
         }
+    });
+  }
+
+  getFileList(type, token){
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+
+    const value = {
+      type: type
+    }
+
+    const defHeads = {headers: headers};
+    const URL = API_BASE_URL + "/files?type=" + type;
+    const options = Object.assign(value, defHeads);
+    return fetch(URL, options)
+      .then(response =>
+        response.json().then(json => {
+          return json;
+      })
+    ); 
+  }
+
+  getSpecificFile(URL, fileName, token){
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+
+    const FileDownload = require('js-file-download');
+
+    return axios.get(URL, {
+      responseType: 'blob',
+      headers: headers
+    }).then((response) => {
+        FileDownload(response.data, fileName);
     });
   }
 

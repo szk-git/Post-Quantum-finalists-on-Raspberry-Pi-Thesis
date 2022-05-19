@@ -1,11 +1,13 @@
 package com.elte.jfirbj.backend.models;
 
 import com.elte.jfirbj.backend.models.enums.AlgorithmEnum;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
@@ -28,6 +30,7 @@ public class FileModel {
     private long time;
 
     private long creationTime;
+
     @Lob
     private byte[] data;
 
@@ -35,8 +38,8 @@ public class FileModel {
         this.name = name;
         this.type = type;
         this.algorithm = algorithm;
-        this.creationTime = creation;
         this.time = time;
+        this.creationTime = creation;
         this.data = data;
     }
 }

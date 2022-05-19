@@ -9,9 +9,7 @@ import lombok.Data;
 public class FileResponse {
     private String name;
     private String url;
-    private String type;
     private long time;
     private long creationTime;
     private AlgorithmEnum algorithm;
-    private long size;
 }

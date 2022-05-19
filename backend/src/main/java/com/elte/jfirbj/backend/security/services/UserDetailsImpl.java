@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.elte.jfirbj.backend.models.User;
 
 public class UserDetailsImpl implements UserDetails {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 896111598425018588L;
 
 	private Long id;
 

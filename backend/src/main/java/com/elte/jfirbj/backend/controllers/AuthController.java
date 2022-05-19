@@ -34,60 +34,40 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController extends com.elte.jfirbj.backend.controllers.utils.AuthUtil {
 
-	@Autowired
-	AuthenticationManager authenticationManager;
+    @Autowired
+    PasswordEncoder encoder;
 
-	@Autowired
-	UserRepository userRepository;
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        Authentication authentication = getAuthenticate(loginRequest);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-	@Autowired
-	JwtUtils jwtUtils;
+        List<String> roles = getAllRoles(userDetails);
 
-	@Autowired
-	PasswordEncoder encoder;
+        updateCurrentUser(userDetails);
 
-	@PostMapping("/login")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        return ResponseEntity.ok(new JwtResponse(getJwt(authentication), userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+    }
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        ResponseEntity<MessageResponse> body = throwBadRequestIfUsernameOrEmailIsExist(signUpRequest);
+        if (body != null) return body;
 
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-		List<String> roles = userDetails.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority)
-				.collect(Collectors.toList());
+        User user = new User.UserBuilder()
+                .userName(signUpRequest.getUsername())
+                .firstName(signUpRequest.getFirstName())
+                .lastName(signUpRequest.getLastName())
+                .email(signUpRequest.getEmail())
+                .password(encoder.encode(signUpRequest.getPassword()))
+                .build();
 
-		User userById = userRepository.getOne(userDetails.getId());
-		userById.setLastLogin(new Date());
-		userRepository.save(userById);
+        saveCurrentUser(user);
 
-		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
-	}
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
 
-	@PostMapping("/register")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			System.out.println("username");
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
-		}
-
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			System.out.println("email");
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
-		}
-
-		User user = new User(signUpRequest.getUsername(), signUpRequest.getFirstName(), signUpRequest.getLastName(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
-
-		Set<RoleEnum> roles = new HashSet<>();
-		roles.add(RoleEnum.ROLE_USER);
-
-		user.setRoles(roles);
-		userRepository.save(user);
-
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-	}
 }

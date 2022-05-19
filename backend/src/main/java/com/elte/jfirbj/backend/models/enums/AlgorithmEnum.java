@@ -1,12 +1,14 @@
 package com.elte.jfirbj.backend.models.enums;
 
 public enum AlgorithmEnum {
+    AES("AES"),
+    Frodo("Frodo"),
     Kyber512("Kyber512"),
-    Kyber512_90s("Kyber512-90s"),
+    Kyber512_90s("Kyber512_90s"),
     Kyber768("Kyber768"),
     Kyber768_90s("Kyber768_90s"),
     Kyber1024("Kyber1024"),
-    Kyber1024_90s("Kyber1024-90s"),
+    Kyber1024_90s("Kyber1024_90s"),
     NTRU701("NTRU701"),
     NTRU4096("NTRU4096"),
     NTRU2048v1("NTRU2048v1"),

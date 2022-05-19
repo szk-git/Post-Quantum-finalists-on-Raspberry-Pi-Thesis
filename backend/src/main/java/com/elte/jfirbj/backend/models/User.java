@@ -1,7 +1,6 @@
 package com.elte.jfirbj.backend.models;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -63,12 +62,51 @@ public class User {
 	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastLogin;
-	
-	public User(String username, String firstName, String lastName, String email, String password) {
-		this.username = username;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
+
+	public User(UserBuilder userBuilder) {
+		this.username = userBuilder.userName;
+		this.firstName = userBuilder.firstName;
+		this.lastName = userBuilder.lastName;
+		this.email = userBuilder.email;
+		this.password = userBuilder.password;
+	}
+
+	public static class UserBuilder
+	{
+		private String userName;
+		private String firstName;
+		private String lastName;
+		private String email;
+		private String password;
+
+		public UserBuilder userName(String userName) {
+			this.userName = userName;
+			return this;
+		}
+
+		public UserBuilder firstName(String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+
+		public UserBuilder lastName(String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+
+		public UserBuilder email(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public UserBuilder password(String password) {
+			this.password = password;
+			return this;
+		}
+
+		public User build() {
+			User user =  new User(this);
+			return user;
+		}
 	}
 }
