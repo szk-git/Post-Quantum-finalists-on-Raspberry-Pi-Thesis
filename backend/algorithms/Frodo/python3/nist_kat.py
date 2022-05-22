@@ -60,8 +60,5 @@ class NISTKAT(object):
 if __name__ == "__main__":
     # Run KATs for all supported FrodoKEM variants
     NISTKAT.run(FrodoKEM('FrodoKEM-640-AES'))
-    NISTKAT.run(FrodoKEM('FrodoKEM-640-SHAKE'))
     NISTKAT.run(FrodoKEM('FrodoKEM-976-AES'))
-    NISTKAT.run(FrodoKEM('FrodoKEM-976-SHAKE'))
     NISTKAT.run(FrodoKEM('FrodoKEM-1344-AES'))
-    NISTKAT.run(FrodoKEM('FrodoKEM-1344-SHAKE'))

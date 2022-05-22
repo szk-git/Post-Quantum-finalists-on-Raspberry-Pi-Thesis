@@ -75,10 +75,16 @@ export default class Register extends Component {
         });
         this.props.history.push("/login");
         }, error => {
-          const resMessage = error.response.data.message;
-          this.setState({
-            message: resMessage
-          });
+          if (typeof(error.response) !== 'undefined') {
+            const resMessage = error.response.data.message;
+            this.setState({
+              message: resMessage
+            });
+          }else{
+            this.setState({
+              message: "The server can't response :("
+            });
+          }
         }
       );
     }else{

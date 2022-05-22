@@ -50,11 +50,16 @@ export default class Login extends Component {
           this.props.history.push("/profile");
           window.location.reload();
         }, error => {
-          const resMessage = error.response.status;
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
+          if (typeof(error.response) !== 'undefined') {
+            const resMessage = error.response.data.message;
+            this.setState({
+              message: resMessage
+            });
+          }else{
+            this.setState({
+              message: "The server can't response :("
+            });
+          }
         }
       );
     } else {
@@ -91,10 +96,10 @@ export default class Login extends Component {
                   </button>
                 </div>
 
-                {this.state.message === "401" && (
+                {this.state.message && (
                   <div className="form-group">
-                    <div className="alert alert-danger" role="alert">
-                      ERROR: Unathorized user!
+                    <div className={this.state.successful ? "alert alert-success" : "alert alert-danger"} role="alert">
+                      {this.state.message}
                     </div>
                   </div>
                 )}

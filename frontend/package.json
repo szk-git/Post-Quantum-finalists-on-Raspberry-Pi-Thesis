@@ -1,6 +1,6 @@
 {
-  "name": "stock-application",
-  "version": "0.1.0",
+  "name": "post-quantum-thesis",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",

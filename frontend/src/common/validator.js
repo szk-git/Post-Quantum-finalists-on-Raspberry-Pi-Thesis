@@ -25,7 +25,7 @@ export const isEmailFormat = value => {
 };
 
 export const isUsername = value => {
-  if (value.length < 3 || value.length > 20) {
+  if (value.length < USERNAME_MIN_LENGTH || value.length > USERNAME_MAX_LENGTH) {
     return (
       <div className="alert alert-danger" role="alert">
         The username must be between {USERNAME_MIN_LENGTH} and {USERNAME_MAX_LENGTH} characters.
@@ -35,7 +35,7 @@ export const isUsername = value => {
 };
 
 export const isFullname = value => {
-  if (value.length < 4 || value.length >= 20) {
+  if (value.length < NAME_MIN_LENGTH || value.length >= NAME_MAX_LENGTH) {
     return (
       <div className="alert alert-danger" role="alert">
         Your name must be between {NAME_MIN_LENGTH} and {NAME_MAX_LENGTH} characters.
@@ -45,7 +45,7 @@ export const isFullname = value => {
 };
 
 export const isPassword = value => {
-  if (value.length < 6 || value.length > 40) {
+  if (value.length < PASSWORD_MIN_LENGTH || value.length > PASSWORD_MAX_LENGTH) {
     return (
       <div className="alert alert-danger" role="alert">
         The password must be between {PASSWORD_MIN_LENGTH} and {PASSWORD_MAX_LENGTH} characters.
