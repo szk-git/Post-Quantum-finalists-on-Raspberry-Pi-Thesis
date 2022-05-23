@@ -78,11 +78,13 @@ export default class Register extends Component {
           if (typeof(error.response) !== 'undefined') {
             const resMessage = error.response.data.message;
             this.setState({
-              message: resMessage
+              message: resMessage,
+              loading: false
             });
           }else{
             this.setState({
-              message: "The server can't response :("
+              message: "The server can't response :(",
+              loading: false
             });
           }
         }

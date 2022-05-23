@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: CC0-1.0
 # Created by Douglas Stebila
 
+import sys
 from frodokem import FrodoKEM
 
 class NISTKAT(object):
@@ -59,6 +60,11 @@ class NISTKAT(object):
 
 if __name__ == "__main__":
     # Run KATs for all supported FrodoKEM variants
-    NISTKAT.run(FrodoKEM('FrodoKEM-640-AES'))
-    NISTKAT.run(FrodoKEM('FrodoKEM-976-AES'))
-    NISTKAT.run(FrodoKEM('FrodoKEM-1344-AES'))
+    if "FrodoKEM-640" == str(sys.argv[1]):
+      NISTKAT.run(FrodoKEM('FrodoKEM-640-AES'))
+    elif "FrodoKEM-976" == str(sys.argv[1]):
+      NISTKAT.run(FrodoKEM('FrodoKEM-976-AES'))
+    elif "FrodoKEM-1344" == str(sys.argv[1]): 
+      NISTKAT.run(FrodoKEM('FrodoKEM-1344-AES'))
+    else:
+      print('Invalid type')

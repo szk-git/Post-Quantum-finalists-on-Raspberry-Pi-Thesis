@@ -58,7 +58,9 @@ export default class SubmitService extends Component {
                     <div className="input-group">
                         <select className="custom-select" value={this.state.value} onChange={this.handleSubmitChange}>
                             <option value="AES">AES256</option>
-                            <option value="Frodo">Frodo</option>
+                            <option value="FrodoKEM_640">FrodoKEM-640</option>
+                            <option value="FrodoKEM_976">FrodoKEM-976</option>
+                            <option value="FrodoKEM_1344">FrodoKEM-1344</option>
                             <option value="Kyber512">Kyber512</option>
                             <option value="Kyber512_90s">Kyber512-90s</option>
                             <option value="Kyber768">Kyber768</option>

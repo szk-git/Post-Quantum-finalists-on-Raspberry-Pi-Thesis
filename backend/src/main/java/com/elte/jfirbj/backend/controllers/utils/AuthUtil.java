@@ -68,4 +68,11 @@ public class AuthUtil {
         }
         return null;
     }
+
+    protected ResponseEntity<MessageResponse> throwErrorIfUserNotExists(LoginRequest signUpRequest) {
+        if (!userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Incorrect username!"));
+        }
+        return null;
+    }
 }

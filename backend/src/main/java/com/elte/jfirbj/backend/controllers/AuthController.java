@@ -41,6 +41,9 @@ public class AuthController extends com.elte.jfirbj.backend.controllers.utils.Au
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        ResponseEntity<MessageResponse> body = throwErrorIfUserNotExists(loginRequest);
+        if (body != null) return body;
+
         Authentication authentication = getAuthenticate(loginRequest);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -53,7 +56,7 @@ public class AuthController extends com.elte.jfirbj.backend.controllers.utils.Au
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         ResponseEntity<MessageResponse> body = throwBadRequestIfUsernameOrEmailIsExist(signUpRequest);
         if (body != null) return body;
 

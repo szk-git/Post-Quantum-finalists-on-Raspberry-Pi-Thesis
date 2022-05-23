@@ -38,6 +38,7 @@ export default class FileService extends Component {
         return fetch(URL, options)
             .then(response =>
                 response.json().then(json => {
+                    console.log(json.length)
                     this.setState({
                         listValues: json
                     });
@@ -75,7 +76,10 @@ export default class FileService extends Component {
                     <div className="input-group">
                         <select className="custom-select" value={this.state.value} onChange={this.handleGetListChange}>
                             <option value="AES">AES256</option>
-                            <option value="Frodo">Frodo</option>
+                            <option value="FrodoKEM">FrodoKEM</option>
+                            <option value="FrodoKEM_640">FrodoKEM-640</option>
+                            <option value="FrodoKEM_976">FrodoKEM-976</option>
+                            <option value="FrodoKEM_1344">FrodoKEM-1344</option>
                             <option value="NTRU">NTRU</option>
                             <option value="NTRU701">NTRU701</option>
                             <option value="NTRU4096">NTRU4096</option>

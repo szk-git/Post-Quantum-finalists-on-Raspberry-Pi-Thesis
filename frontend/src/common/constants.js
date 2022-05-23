@@ -1,4 +1,4 @@
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://192.168.0.103:8000';
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://192.168.100.25:8000';
 export const ACCESS_TOKEN = 'accessToken';
 
 export const NAME_MIN_LENGTH = 4;

@@ -58,12 +58,16 @@ chooseNTRU(){
 }
 
 chooseFrodo(){
-    if [ $1 == "Frodo" ]; then
-        echo "Frodo has gotten rid of the ring!"
-        python $FrodoFile > files/Frodo.rsp
+    if [ $1 == "FrodoKEM-640" ]; then
+        python $FrodoFile $1 > files/FrodoKEM-640
+    elif [ $1 == "FrodoKEM-976" ]; then
+        python $FrodoFile $1 > files/FrodoKEM-976
+    elif [ $1 == "FrodoKEM-1344" ]; then
+        python $FrodoFile $1 > files/FrodoKEM-1344
     else
-        echo "JUST FRODO"
+        echo "Not valid Frodo type"
     fi
+
 }
 
 if [[ $1 == *"Kyber"* ]]; then
