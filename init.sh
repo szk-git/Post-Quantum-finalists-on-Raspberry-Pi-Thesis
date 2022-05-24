@@ -5,7 +5,7 @@ sudo apt update
 echo "======================= INSTALL <libssl-dev> PACKAGE ======================="
 sudo apt-get install libssl-dev -y
 echo "======================= INSTALL <bitstring> PACKAGE ======================="
-pip install bitstring -y
+pip install bitstring
 echo "======================= INSTALL <default-jre> PACKAGE ======================="
 sudo apt install default-jre -y
 echo "======================= INSTALL <maven> PACKAGE ======================="
