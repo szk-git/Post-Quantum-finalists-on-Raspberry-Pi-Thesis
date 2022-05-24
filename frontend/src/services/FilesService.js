@@ -11,18 +11,29 @@ export default class FileService extends Component {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${props.token}`
             },
+            message: null,
+            successful: false,
             getListValue: 'AES',
             listValues: []
         };
         this.handleGetListChange = this.handleGetListChange.bind(this);
         this.getSpecificFile = this.getSpecificFile.bind(this);
         this.getFileList = this.getFileList.bind(this);
+        this.nullMessageStatus = this.nullMessageStatus.bind(this);
     }
 
     handleGetListChange(event) {
         this.setState({
             getListValue: event.target.value
         });
+    }
+
+    nullMessageStatus(){
+        setTimeout(() => {
+            this.setState({
+                message: null
+            });
+        }, 5000);
     }
 
     getFileList(event) {
@@ -38,10 +49,20 @@ export default class FileService extends Component {
         return fetch(URL, options)
             .then(response =>
                 response.json().then(json => {
-                    console.log(json.length)
-                    this.setState({
-                        listValues: json
-                    });
+                    if(json.length === 0){
+                        this.setState({
+                            message: "Can't find any specific algorithm.",
+                            successful: false
+                        });
+                        this.nullMessageStatus()
+                    }else{
+                        this.setState({
+                            message: "You can see the results below",
+                            successful: true,
+                            listValues: json
+                        });
+                        this.nullMessageStatus()
+                    }
                 })
             );
     }
@@ -80,11 +101,6 @@ export default class FileService extends Component {
                             <option value="FrodoKEM_640">FrodoKEM-640</option>
                             <option value="FrodoKEM_976">FrodoKEM-976</option>
                             <option value="FrodoKEM_1344">FrodoKEM-1344</option>
-                            <option value="NTRU">NTRU</option>
-                            <option value="NTRU701">NTRU701</option>
-                            <option value="NTRU4096">NTRU4096</option>
-                            <option value="NTRU2048v1">NTRU2048v1</option>
-                            <option value="NTRU2048v2">NTRU2048v2</option>
                             <option value="Kyber">Kyber</option>
                             <option value="Kyber512">Kyber512</option>
                             <option value="Kyber512_90s">Kyber512-90s</option>
@@ -92,13 +108,24 @@ export default class FileService extends Component {
                             <option value="Kyber768_90s">Kyber768-90s</option>
                             <option value="Kyber1024">Kyber1024</option>
                             <option value="Kyber1024_90s">Kyber1024-90s</option>
+                            <option value="NTRU">NTRU</option>
+                            <option value="NTRU701">NTRU701</option>
+                            <option value="NTRU4096">NTRU4096</option>
+                            <option value="NTRU2048v1">NTRU2048v1</option>
+                            <option value="NTRU2048v2">NTRU2048v2</option>
                         </select>
                         <div className="input-group-append">
                             <input className="btn btn-info" type="submit" value="Submit" />
                         </div>
                     </div>
                 </form>
-
+                {this.state.message && (
+                  <div className="form-group">
+                    <div className={this.state.successful ? "alert alert-success" : "alert alert-danger"} role="alert">
+                      {this.state.message}
+                    </div>
+                  </div>
+                )}
                 <table className="table">
                     <thead>
                         <tr>

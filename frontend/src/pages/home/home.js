@@ -5,7 +5,7 @@ export default class Home extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>Hey hey!</h3>
+          <h5>Hello, my name is Kristóf Szabó and this is my application for my thesis.</h5>
         </header>
       </div>
     );
