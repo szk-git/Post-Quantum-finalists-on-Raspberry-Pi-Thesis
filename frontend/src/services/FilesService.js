@@ -44,7 +44,7 @@ export default class FileService extends Component {
         }
 
         const defHeads = { headers: this.state.headers };
-        const URL = API_BASE_URL + "/files?type=" + this.state.getListValue;
+        const URL = API_BASE_URL + "/api/v1/files?type=" + this.state.getListValue;
         const options = Object.assign(value, defHeads);
         return fetch(URL, options)
             .then(response =>

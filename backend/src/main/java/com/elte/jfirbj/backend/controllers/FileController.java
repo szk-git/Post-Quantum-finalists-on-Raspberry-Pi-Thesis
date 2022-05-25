@@ -1,5 +1,6 @@
 package com.elte.jfirbj.backend.controllers;
 
+import com.elte.jfirbj.backend.controllers.utils.FileUtils;
 import com.elte.jfirbj.backend.models.FileModel;
 import com.elte.jfirbj.backend.models.enums.AlgorithmEnum;
 import com.elte.jfirbj.backend.payload.response.FileResponse;
@@ -8,10 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -19,7 +17,8 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 @Controller
-public class FileController extends com.elte.jfirbj.backend.controllers.utils.FileUtils {
+@RequestMapping("/api/v1")
+public class FileController extends FileUtils {
 
 
     @PostMapping("/run")

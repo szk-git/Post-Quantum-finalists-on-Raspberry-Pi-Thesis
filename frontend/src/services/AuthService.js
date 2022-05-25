@@ -5,7 +5,7 @@ import {API_BASE_URL} from '../common/constants';
 class AuthService {
   login(username, password) {
     return axios
-      .post(API_BASE_URL + "/auth/login", {
+      .post(API_BASE_URL + "/api/v1/auth/login", {
         username,
         password
       })
@@ -19,7 +19,7 @@ class AuthService {
   }
 
   register(username, firstName, lastName, email, password) {
-    return axios.post(API_BASE_URL + "/auth/register", {
+    return axios.post(API_BASE_URL + "/api/v1/auth/register", {
       username,
       firstName,
       lastName,

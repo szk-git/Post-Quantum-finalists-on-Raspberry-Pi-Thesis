@@ -26,7 +26,6 @@ public class FileUtils {
 
         try {
             Process process = processBuilder.start();
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
             printAllImputLines(reader);
@@ -50,8 +49,7 @@ public class FileUtils {
         if (!storageService.isFileExist(attr.creationTime().toMillis())) {
             try {
                 FileInputStream input = new FileInputStream(files[i]);
-                MultipartFile multipartFile = new MockMultipartFile("file",
-                        files[i].getName(), "text/plain", IOUtils.toByteArray(input));
+                MultipartFile multipartFile = new MockMultipartFile("file", files[i].getName(), "text/plain", IOUtils.toByteArray(input));
                 storageService.store(algorithm, attr.creationTime().toMillis(), end - begin, multipartFile);
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(
@@ -67,7 +65,7 @@ public class FileUtils {
                 .map(dbFileModel -> {
                     String fileDownloadUri = ServletUriComponentsBuilder
                             .fromCurrentContextPath()
-                            .path("/files/")
+                            .path("/api/v1/files/")
                             .path(dbFileModel.getId())
                             .toUriString();
 

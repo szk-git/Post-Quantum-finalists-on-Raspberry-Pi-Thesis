@@ -41,7 +41,7 @@ export default class SubmitService extends Component {
         }
 
         const defHeads = { headers: this.state.headers };
-        const URL = API_BASE_URL + "/run?type=" + type;
+        const URL = API_BASE_URL + "/api/v1/run?type=" + type;
 
         return axios.post(URL, value, defHeads).catch((error) => {
             if (error.response) {
